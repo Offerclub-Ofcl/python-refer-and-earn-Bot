@@ -4,16 +4,16 @@ import json
 import telebot
 
 ##TOKEN DETAILS
-TOKEN = "INR"
+TOKEN = "TRX"
 
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 PAYMENT_CHANNEL = "@eliufgyioyeofi" #add payment channel here including the '@' sign
 OWNER_ID = 6222756114 #write owner's user id here.. get it from @MissRose_Bot by /id
 CHANNELS = ["@FuTechBots"] #add channels to be checked here in the format - ["Channel 1", "Channel 2"] 
               #you can add as many channels here and also add the '@' sign before channel username
-Daily_bonus = 2 #Put daily bonus amount here!
-Mini_Withdraw = 60  #remove 0 and add the minimum withdraw u want to set
-Per_Refer = 1 #add per refer bonus here
+Daily_bonus = 0.1 #Put daily bonus amount here!
+Mini_Withdraw = 10  #remove 0 and add the minimum withdraw u want to set
+Per_Refer = 0.2 #add per refer bonus here
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
@@ -271,13 +271,13 @@ def trx_address(message):
    try:
     if message.text == "🚫 Cancel":
         return menu(message.chat.id)
-   if (message.text.includes('@')):
+   if len(message.text) == 34:
         user_id = message.chat.id
         user = str(user_id)
         data = json.load(open('users.json', 'r'))
         data['wallet'][user] = message.text
 
-        bot.send_message(message.chat.id, "*💹Your UPI set to " +
+        bot.send_message(message.chat.id, "*💹Your TRX Address set to " +
                          data['wallet'][user]+"*", parse_mode="Markdown")
         json.dump(data, open('users.json', 'w'))
         return menu(message.chat.id)
